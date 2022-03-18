@@ -108,6 +108,14 @@ void loop()
     glutMainLoop();
 }
 
+void framerate_increase(){
+    ticks_per_sec = ticks_per_sec + 5;
+}
+
+void framerate_decrease(){
+    ticks_per_sec = ticks_per_sec - 5;
+}
+
 void exit_loop()
 {
     glutLeaveMainLoop();

@@ -5,21 +5,45 @@
 Compilez et lancez le programme.
 
 Allez dans le fichier `tower_sim.cpp` et recherchez la fonction responsable de gérer les inputs du programme.
+
+<br>-->void TowerSimulation::create_keystrokes() const</br>
+
 Sur quelle touche faut-il appuyer pour ajouter un avion ?
+<br>-->sur la touche 'c'</br>
+
 Comment faire pour quitter le programme ?
+<br>-->appuez sur la touche 'x' ou 'q'</br>
+
 A quoi sert la touche 'F' ?
+<br>--> mettre en 'plein ecran' l'application</br>
 
 Ajoutez un avion à la simulation et attendez.
 Que est le comportement de l'avion ?
+<br>--> l'avion vol, tourne et atteri à l'infini</br>
+
 Quelles informations s'affichent dans la console ?
+<br>-->le numéro de l'avion</br>
+<br>-->les actions de l'avion : is now landing, now servicing, done servicing, lift off</br>
 
 Ajoutez maintenant quatre avions d'un coup dans la simulation.
 Que fait chacun des avions ?
+<br>-->chaque avion essaye de s'atterir mais pas au même endroit ou au meme moment, ils font les actions.</br>    
 
 ## B- Analyse du code
 
 Listez les classes du programme à la racine du dossier src/.
 Pour chacune d'entre elle, expliquez ce qu'elle représente et son rôle dans le programme.
+<br>--> **Aircraft** : représente les movements de l'avion, a comme rôle de l'affichage de l'avion dans l'application</br>  
+<br>--> **AircraftType** : représente les caractéristiques de chaque type d'avion (y'a 3 types)</br>  
+<br>--> **Airport** : cette classe représente l'affichage de l'aéoropot, la reservation  du terminal et le mouvement à l'aéroport  </br>  
+<br>--> **AirportType** : représente les différents élément de l'aéorport, la position du passage, la position du passerelle, la position du terminal et la piste</br> 
+<br>--> **Point2D**</br>   
+<br>--> **Point3D**</br>  
+<br>--> **Runway**</br>  
+<br>--> **Terminal**</br>
+<br>--> **Tower**</br>
+<br>--> **TowerSimulation**</br>
+<br>--> **Waypoint**</br>
 
 Pour les classes `Tower`, `Aircaft`, `Airport` et `Terminal`, listez leurs fonctions-membre publiques et expliquez précisément à quoi elles servent.
 Réalisez ensuite un schéma présentant comment ces différentes classes intéragissent ensemble.
