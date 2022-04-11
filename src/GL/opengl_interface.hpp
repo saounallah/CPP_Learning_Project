@@ -21,6 +21,7 @@ namespace GL {
 inline unsigned int ticks_per_sec = DEFAULT_TICKS_PER_SEC;
 inline float zoom                 = DEFAULT_ZOOM;
 inline bool fullscreen            = false;
+inline bool pause                 = false;
 
 using KeyStroke = std::function<void(void)>;
 
@@ -33,6 +34,7 @@ void change_zoom(const float factor);
 void init_gl(int argc, char** argv, const char* title);
 void framerate_increase();
 void framerate_decrease();
+void framerate_pause();
 void loop();
 void exit_loop();
 

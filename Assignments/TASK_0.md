@@ -37,20 +37,53 @@ Pour chacune d'entre elle, expliquez ce qu'elle représente et son rôle dans le
 <br>--> **AircraftType** : représente les caractéristiques de chaque type d'avion (y'a 3 types)</br>  
 <br>--> **Airport** : cette classe représente l'affichage de l'aéoropot, la reservation  du terminal et le mouvement à l'aéroport  </br>  
 <br>--> **AirportType** : représente les différents élément de l'aéorport, la position du passage, la position du passerelle, la position du terminal et la piste</br> 
-<br>--> **Point2D**</br>   
-<br>--> **Point3D**</br>  
-<br>--> **Runway**</br>  
-<br>--> **Terminal**</br>
-<br>--> **Tower**</br>
-<br>--> **TowerSimulation**</br>
-<br>--> **Waypoint**</br>
+<br>--> **Point2D** : représente les points en 2D</br>   
+<br>--> **Point3D** :  représente les points en 3D?</br>  
+<br>--> **Runway** : représente la piste </br>  
+<br>--> **Terminal** : représente deux opérations de l'avion "now serving" et "done servicing" qui doit l'effectuer </br>
+<br>--> **Tower** : représente le tour de controle de l'aeroport qui produire les instructions pour l'avion</br>
+<br>--> **TowerSimulation** : permet d'initialiser l'aéroport et affecter ses actions </br>
+<br>--> **Waypoint** : représente un ENUM indique si le waypoint est wp_air, wp_ground ou wp_terminal</br>
 
 Pour les classes `Tower`, `Aircaft`, `Airport` et `Terminal`, listez leurs fonctions-membre publiques et expliquez précisément à quoi elles servent.
 Réalisez ensuite un schéma présentant comment ces différentes classes intéragissent ensemble.
 
+<br>--> **Tower** : </br>
+<ul>
+    <li>WaypointQueue Tower::get_circle() const : retourne un ensemble de waypoint de dimension 3d de type wp_air</li>
+    <li>WaypointQueue Tower::get_instructions(Aircraft& aircraft) : récupère les instructions d'un avion en fonction de sa position actuelle</li>
+    <li>void Tower::arrived_at_terminal(const Aircraft& aircraft) : signale qu'un avion est arrivé au terminal et commence son service</li>
+</ul>
+
+<br>--> **Aircaft** : </br>
+<ul>
+    <li>const std::string& get_flight_num() const : récupère le numéro de vol </li>
+    <li>float distance_to(const Point3D& p) const : calculer la distance entre un point donnée et un avion</li>
+    <li>void display() const : affichage de l'avion</li>
+    <li>void Aircraft::move() : l'avion de déplace jusqu'au prochain waypoint disponible</li>
+</ul>
+<br>--> **Airport** : </br>
+<ul>
+    <li>Tower& get_tower() : récupère la tour du contrôle</li>
+    <li>void display() const : affichage de l'aéoroprt</li>
+    <li>void move() : placement de l'aéroport.</li>
+</ul>
+<br>--> **Terminal** : </br>
+<ul>
+    <li>bool in_use() const : permet de savoir si le terminal est utilisé par un avion </li>
+    <li>bool is_servicing() const : permet de savoir si un embarquement ou déparquement en cours </li>
+    <li>void assign_craft(const Aircraft& aircraft) : assign un avion à un terminal</li>
+    <li>void start_service(const Aircraft& aircraft) : démarre le service d'un avion</li>
+    <li>void finish_service() : termine le service de l'avion au terminal </li>
+    <li>void move() : actualiser le plateau</li>
+</ul>
+
 Quelles classes et fonctions sont impliquées dans la génération du chemin d'un avion ?
+<br>--> Tower -> get_instructions</br>   
+<br>--> waypoint</br>   
 Quel conteneur de la librairie standard a été choisi pour représenter le chemin ?
 Expliquez les intérêts de ce choix.
+<br>le contenur de la librairie standard choisi pour représenter le chemin est deque. il estvplus efficace pout l'insertion et la suppression d'éléments</br>
 
 ## C- Bidouillons !
 
@@ -61,9 +94,11 @@ Modifiez le programme pour tenir compte de cela.
 2) Identifiez quelle variable contrôle le framerate de la simulation.
 Ajoutez deux nouveaux inputs au programme permettant d'augmenter ou de diminuer cette valeur.
 Essayez maintenant de mettre en pause le programme en manipulant ce framerate. Que se passe-t-il ?\
+<br>quand je met le ticks_per_sec = 0, le programme s'arrête car y aura une division par 0</br>
 Ajoutez une nouvelle fonctionnalité au programme pour mettre le programme en pause, et qui ne passe pas par le framerate.
 
 3) Identifiez quelle variable contrôle le temps de débarquement des avions et doublez-le.
+<br>constexpr unsigned int SERVICE_CYCLES dans config.hpp</br>
 
 4) Lorsqu'un avion a décollé, il réattérit peu de temps après.
 Faites en sorte qu'à la place, il soit retiré du programme.\
@@ -72,6 +107,9 @@ A quel endroit pouvez-vous savoir que l'avion doit être supprimé ?\
 Pourquoi n'est-il pas sûr de procéder au retrait de l'avion dans cette fonction ?
 A quel endroit de la callstack pourriez-vous le faire à la place ?\
 Que devez-vous modifier pour transmettre l'information de la première à la seconde fonction ?
+<br>On peut savoir que l'avion doit être supprimer quand il possède plus de waypoint et qu'il a déja atteri</br>
+<br>Dans la classe Tower.cpp dans la fonction get_instructions</br>
+<br>La solution est un boolean dans classe Aircraft qui passe a vrai si l'avion veulent s'envoler une deuxième fois.</br>
 
 5) Lorsqu'un objet de type `Displayable` est créé, il faut ajouter celui-ci manuellement dans la liste des objets à afficher.
 Il faut également penser à le supprimer de cette liste avant de le détruire.

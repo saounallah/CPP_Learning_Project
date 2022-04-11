@@ -59,6 +59,7 @@ void TowerSimulation::create_keystrokes() const
     GL::keystrokes.emplace('f', []() { GL::toggle_fullscreen(); });
     GL::keystrokes.emplace('a', []() { GL::framerate_increase();; });
     GL::keystrokes.emplace('d', []() { GL::framerate_decrease(); });
+    GL::keystrokes.emplace('p', []() { GL::framerate_pause(); });
 }
 
 void TowerSimulation::display_help() const

@@ -73,9 +73,11 @@ void display(void)
 
 void timer(const int step)
 {
-    for (auto& item : move_queue)
-    {
-        item->move();
+    if(!pause){
+        for (auto& item : move_queue)
+        {
+            item->move();
+        }
     }
     glutPostRedisplay();
     glutTimerFunc(1000u / ticks_per_sec, timer, step + 1);
@@ -109,11 +111,15 @@ void loop()
 }
 
 void framerate_increase(){
-    ticks_per_sec = ticks_per_sec + 5;
+    ticks_per_sec = ticks_per_sec + 3;
 }
 
 void framerate_decrease(){
-    ticks_per_sec = ticks_per_sec - 5;
+    ticks_per_sec = ticks_per_sec - 3;
+}
+
+void framerate_pause(){
+    pause = !pause;
 }
 
 void exit_loop()
