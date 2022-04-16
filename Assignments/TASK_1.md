@@ -7,7 +7,7 @@ Chaque avion créé est ensuite placé dans les files `GL::display_queue` et `GL
 
 Si à un moment quelconque du programme, vous souhaitiez accéder à l'avion ayant le numéro de vol "AF1250", que devriez-vous faire ?
 
----
+<br>--> La recherche se fait dans GL::move_queue ou dans GL::display_queue.</br>
 
 ## Objectif 1 - Référencement des avions
 
@@ -30,9 +30,13 @@ Il serait donc bon de savoir qui est censé détruire les avions du programme, a
 
 Répondez aux questions suivantes :
 1. Qui est responsable de détruire les avions du programme ? (si vous ne trouvez pas, faites/continuez la question 4 dans TASK_0)
+<br>->lors de l'appel de la méthode timer dans opengl_interface, les avions seront retiré de move_queue. </br>
 2. Quelles autres structures contiennent une référence sur un avion au moment où il doit être détruit ?
+<br>->il contient un réference dans display_queue.</br>
 3. Comment fait-on pour supprimer la référence sur un avion qui va être détruit dans ces structures ?
+<br>->on utilisant le destructeur de Displayable qui s'occupe de supprimer la réference dans display_queue. </br>
 4. Pourquoi n'est-il pas très judicieux d'essayer d'appliquer la même chose pour votre `AircraftManager` ?
+<br>-> on veut que AircraftManager gère les avions pendant toute la durée du programmes, même si les avions seront détruit on veut les garder sans qu'ils apparaissent en cas qu'on aura besoin d'eux. </br>
 
 Pour simplifier le problème, vous allez déplacer l'ownership des avions dans la classe `AircraftManager`.
 Vous allez également faire en sorte que ce soit cette classe qui s'occupe de déplacer les avions, et non plus la fonction `timer`.
