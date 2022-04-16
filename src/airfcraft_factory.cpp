@@ -42,4 +42,13 @@ Aircraft* AircraftFactory::create_random_aircraft(Airport* airport)
     return create_aircraft(airport, *(aircraft_types[rand() % 3]));
 }
 
-
+void AircraftFactory::get_airlines(int index)
+{
+    assert(index>=0 && "invalide input égale à 0") ;
+    assert(index<8 && "invalide input supèrieure à 7");
+    std::cout << airlines[index] << " : "
+              << std::count_if(flight_numbers.begin(), flight_numbers.end(),
+                               [this, index](std::string flight)
+                               { return airlines[index].compare(0, 2, flight, 0, 2) == 0; })
+              << std::endl;
+}
