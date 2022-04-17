@@ -160,3 +160,7 @@ bool Aircraft::is_served() const
 {
     return served;
 }
+
+bool Aircraft::has_terminal() const { 
+    return waypoints.back().is_at_terminal();
+}

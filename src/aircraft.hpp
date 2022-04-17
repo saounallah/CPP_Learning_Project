@@ -67,6 +67,6 @@ public:
     bool is_served() const;
     bool move() override;
     unsigned int get_fuel() const;
-
+    bool has_terminal() const;
     friend class Tower;
 };
