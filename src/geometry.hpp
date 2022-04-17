@@ -5,6 +5,10 @@
 #include <cassert>
 #include <cmath>
 #include <iostream>
+#include <chrono>
+#include <vector>
+#include <numeric>
+#include <execution>
 
 struct Point2D
 {
@@ -121,8 +125,9 @@ struct Point3D
 
     float length() const 
     { 
-        return std::sqrt(std::reduce(values.begin(), values.end(), 0.0,[](float i, float j) { return i + (j * j); })); 
+        return std::sqrt(std::accumulate(values.begin(), values.end(), 0.f, [](float i, float j) { return i + j * j; })); 
     }
+
 
     float distance_to(const Point3D& other) const { return (*this - other).length(); }
 
@@ -140,6 +145,7 @@ struct Point3D
 
     Point3D& cap_length(const float max_len)
     {
+
         assert(max_len > 0);
 
         const float current_len = length();

@@ -1,10 +1,11 @@
 #include "aircraft_manager.hpp"
 #include <algorithm>
+
 bool AircraftManager::move()
 {
-    auto toDelete = std::remove_if(aircrafts.begin(), aircrafts.end(), [](const auto& item) { return item->move(); });
-    aircrafts.erase(toDelete, aircrafts.end());
-    return true;
+    aircrafts.erase(std::remove_if(aircrafts.begin(), aircrafts.end(),[](std::unique_ptr<Aircraft>& aircraft)
+                    { return !aircraft->move() || aircraft->get_fuel() == 0; }),
+                    aircrafts.end());
 }
 
 void AircraftManager::add_aircraft(Aircraft* aircraft)

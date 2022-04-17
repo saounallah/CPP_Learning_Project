@@ -23,6 +23,6 @@ public:
     bool exists(const std::string& flight_number) const;
     Aircraft* create_aircraft(Airport* airport, const AircraftType& type);
     Aircraft* create_random_aircraft(Airport* airport);
-    void AircraftFactory::get_airlines(int index);
+    void get_airlines(int index);
 };
 

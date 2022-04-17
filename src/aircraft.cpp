@@ -134,6 +134,11 @@ bool Aircraft::move()
             {
                 pos.z() -= SINK_FACTOR * (SPEED_THRESHOLD - speed_len);
             }
+            if (--fuel == 0)
+            {
+                std::cout <<"HELP !! " << flight_number << " is about to crash to the ground !!" << std::endl;
+            }
+
         }
 
         // update the z-value of the displayable structure
@@ -142,6 +147,10 @@ bool Aircraft::move()
     return false;
 }
 
+unsigned int Aircraft::get_fuel() const
+{
+    return fuel;
+}
 void Aircraft::display() const
 {
     type.texture.draw(project_2D(pos), { PLANE_TEXTURE_DIM, PLANE_TEXTURE_DIM }, get_speed_octant());
