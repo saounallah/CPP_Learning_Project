@@ -126,6 +126,14 @@ bool Aircraft::move()
                 throw AircraftCrash { flight_number + " crashed into the ground"s };
             }
         }
+        if (is_circling())
+        {
+            WaypointQueue pathToTerminal = control.reserve_terminal(*this);
+            if (!pathToTerminal.empty())
+            {
+                waypoints = std::move(pathToTerminal);
+            }
+        }
         else
         {
             // if we are in the air, but too slow, then we will sink!
@@ -138,6 +146,7 @@ bool Aircraft::move()
             {
                 std::cout <<"HELP !! " << flight_number << " is about to crash to the ground !!" << std::endl;
             }
+            
 
         }
 
