@@ -70,5 +70,6 @@ public:
     bool has_terminal() const;
     bool is_circling() const;
     bool is_low_on_fuel() const;
+    bool is_aircraft_at_terminal() const;
     friend class Tower;
 };

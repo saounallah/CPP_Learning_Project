@@ -13,4 +13,5 @@ public:
     AircraftManager() {}
     bool move() override;
     void add_aircraft(Aircraft* aircraft);  
+    int get_required_fuel() const;
 };
