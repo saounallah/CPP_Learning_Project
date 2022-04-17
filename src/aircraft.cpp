@@ -177,3 +177,7 @@ bool Aircraft::has_terminal() const {
 bool Aircraft::is_circling() const{
     return !is_served() && !has_terminal();
 }
+
+bool Aircraft::is_low_on_fuel() const{
+    return fuel <= 200;
+}
