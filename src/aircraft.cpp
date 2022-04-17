@@ -186,3 +186,20 @@ bool Aircraft::is_aircraft_at_terminal() const
 {
     return is_at_terminal;
 }
+
+void Aircraft::refill(int& fuel_stock){
+    auto needed_fuel = 3000 - fuel;
+    auto refill_fuel = needed_fuel;
+    if(fuel_stock >= needed_fuel)
+    {
+        fuel = 3000;
+        fuel_stock -= needed_fuel; 
+    }
+    else
+    {
+        refill_fuel = fuel_stock;
+        fuel += fuel_stock;
+        fuel_stock = 0;
+    }
+    std::cout << flight_number << " receive " << refill_fuel << std::endl;
+}

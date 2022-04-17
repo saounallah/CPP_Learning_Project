@@ -71,5 +71,6 @@ public:
     bool is_circling() const;
     bool is_low_on_fuel() const;
     bool is_aircraft_at_terminal() const;
+    void refill(int& fuel_stock);
     friend class Tower;
 };
