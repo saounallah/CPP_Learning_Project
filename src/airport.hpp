@@ -12,6 +12,8 @@
 
 #include <vector>
 
+class AircraftManager;
+
 class Airport : public GL::Displayable, public GL::DynamicObject
 {
 private:
@@ -19,8 +21,13 @@ private:
     const Point3D pos;
     const GL::Texture2D texture;
     std::vector<Terminal> terminals;
+    int fuel_stock       = 0;
+    int ordered_fuel     = 0;
+    int next_refill_time = 0;
     Tower tower;
+    AircraftManager* aircraft_manager = nullptr;
 
+    
     // reserve a terminal
     // if a terminal is free, return
     // 1. a sequence of waypoints reaching the terminal from the runway-end and
@@ -72,6 +79,8 @@ public:
         }
         return false;
     }
+
+    void set_aircraft_manager(AircraftManager* manager) { aircraft_manager = manager; }
 
     friend class Tower;
 };
