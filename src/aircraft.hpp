@@ -68,5 +68,7 @@ public:
     bool move() override;
     unsigned int get_fuel() const;
     bool has_terminal() const;
+    bool is_circling() const;
+    
     friend class Tower;
 };

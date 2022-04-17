@@ -164,3 +164,7 @@ bool Aircraft::is_served() const
 bool Aircraft::has_terminal() const { 
     return waypoints.back().is_at_terminal();
 }
+
+bool Aircraft::is_circling() const{
+    return !is_served() && !has_terminal();
+}
