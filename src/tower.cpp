@@ -57,6 +57,17 @@ WaypointQueue Tower::get_instructions(Aircraft& aircraft)
     }
 }
 
+WaypointQueue Tower::reserve_terminal(Aircraft& aircraft)
+{
+    const auto vp = airport.reserve_terminal(aircraft);
+    if (!vp.first.empty())
+    {
+        reserved_terminals.emplace(&aircraft, vp.second);
+    }
+    return vp.first;
+}
+
+
 void Tower::arrived_at_terminal(const Aircraft& aircraft)
 {   
     assert(&aircraft);
